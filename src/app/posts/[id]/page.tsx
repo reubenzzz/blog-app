@@ -2,7 +2,13 @@ import { Header } from "@/components/Header";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
-import { fetchPost } from "@/lib/data";
+import { fetchPost, mockPosts } from "@/lib/data";
+
+export async function generateStaticParams() {
+  return mockPosts.map((post) => ({
+    id: post.id,
+  }));
+}
 
 export default async function PostPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
