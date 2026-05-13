@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import type { Post } from '@/app/api/posts/route';
+import type { Post } from '@/lib/data';
 import { Search } from 'lucide-react';
 import Link from 'next/link';
 

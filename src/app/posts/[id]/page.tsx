@@ -2,22 +2,11 @@ import { Header } from "@/components/Header";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
-
-async function getPost(id: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/posts/${id}`, {
-    cache: 'no-store'
-  });
-  if (!res.ok) {
-    if (res.status === 404) return null;
-    return null;
-  }
-  return res.json();
-}
+import { fetchPost } from "@/lib/data";
 
 export default async function PostPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const post = await getPost(id);
+  const post = await fetchPost(id);
 
   if (!post) {
     notFound();

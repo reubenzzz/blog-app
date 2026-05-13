@@ -1,22 +1,9 @@
 import { Header } from "@/components/Header";
 import { HomeClient } from "@/components/HomeClient";
-
-async function getPosts() {
-  // Using an absolute URL for SSR fetch. In production, this would be your real API URL.
-  // We use localhost:3000 here assuming it runs on default port.
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/posts`, {
-    cache: 'no-store' // Ensure it's SSR, not static
-  });
-  if (!res.ok) {
-    // If build fails or server isn't up, return empty array to prevent crash during build
-    return [];
-  }
-  return res.json();
-}
+import { fetchPosts } from "@/lib/data";
 
 export default async function Home() {
-  const initialPosts = await getPosts();
+  const initialPosts = await fetchPosts();
 
   return (
     <div className="min-h-screen bg-[#f8f9fa] flex flex-col">
