@@ -14,18 +14,18 @@ export function Header() {
         
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
           <Link href="/" className="text-gray-900 font-semibold">Homepage</Link>
-          <Link href="/about" className="hover:text-gray-900 transition-colors">About us</Link>
-          <Link href="/features" className="hover:text-gray-900 transition-colors">Features</Link>
-          <Link href="/blog" className="hover:text-gray-900 transition-colors">Blog</Link>
-          <Link href="/contact" className="hover:text-gray-900 transition-colors">Contact us</Link>
+          <Link href="#" className="hover:text-gray-900 transition-colors">About us</Link>
+          <Link href="#" className="hover:text-gray-900 transition-colors">Features</Link>
+          <Link href="#" className="hover:text-gray-900 transition-colors">Blog</Link>
+          <Link href="#" className="hover:text-gray-900 transition-colors">Contact us</Link>
         </nav>
 
         <div className="flex items-center gap-4">
-          <Link href="/demo" className="hidden md:block text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+          <Link href="#" className="hidden md:block text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
             Demo
           </Link>
           <Link 
-            href="/start" 
+            href="#" 
             className="bg-gray-900 text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-gray-800 transition-colors"
           >
             Get Started
