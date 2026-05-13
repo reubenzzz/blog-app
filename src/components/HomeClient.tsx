@@ -138,6 +138,30 @@ export function HomeClient({ initialPosts }: { initialPosts: Post[] }) {
               ))}
             </div>
           </section>
+
+          {/* Newsletter Section */}
+          <section className="bg-gray-900 rounded-3xl p-8 sm:p-12 lg:p-16 text-center text-white mt-20 relative overflow-hidden">
+            <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/3 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
+            
+            <div className="relative z-10 max-w-2xl mx-auto">
+              <h3 className="text-3xl sm:text-4xl font-bold mb-6">Stay ahead of the design curve</h3>
+              <p className="text-gray-400 text-lg mb-10">
+                Get our latest articles, tutorials, and design resources delivered straight to your inbox once a week. No spam, we promise.
+              </p>
+              <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>
+                <input 
+                  type="email" 
+                  placeholder="Enter your email address" 
+                  className="flex-1 bg-white/10 border border-white/20 rounded-full px-6 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all"
+                  required
+                />
+                <button type="submit" className="bg-white text-gray-900 font-semibold px-8 py-3 rounded-full hover:bg-gray-100 transition-colors shrink-0">
+                  Subscribe
+                </button>
+              </form>
+            </div>
+          </section>
         </>
       )}
     </div>
