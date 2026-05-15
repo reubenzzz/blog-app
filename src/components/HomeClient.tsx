@@ -12,11 +12,51 @@ export function HomeClient({ initialPosts }: { initialPosts: Post[] }) {
   const { data: posts = initialPosts, isLoading } = useQuery<Post[]>({
     queryKey: ['posts', search],
     queryFn: async () => {
+      // In a client component, React Query will call the server-side proxy
+      // if we don't want to expose API keys, but since this is a public mock API,
+      // we can also fetch directly. Here we just call our shared fetch function.
       const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
-      const params = search ? `?q=${encodeURIComponent(search)}` : '';
-      const res = await fetch(`${baseUrl}/api/posts${params}`);
+      
+      // We will hit the actual external mock API using our fetchPosts helper!
+      // But since fetchPosts runs on the server (if it had secrets), we could proxy it.
+      // Since it's public, we just hit the JSONPlaceholder API directly here.
+      const res = await fetch('https://jsonplaceholder.typicode.com/posts');
       if (!res.ok) throw new Error('Network response was not ok');
-      return res.json();
+      const rawPosts = await res.json();
+      
+      // We replicate the mapping for client-side search caching
+      const images = [
+        'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=400&q=80',
+        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80',
+        'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80',
+        'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=400&q=80',
+        'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=400&q=80',
+        'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=80'
+      ];
+      
+      let mapped = rawPosts.slice(0, 9).map((data: any, index: number) => ({
+        id: data.id.toString(),
+        title: data.title,
+        excerpt: data.body.substring(0, 100) + '...',
+        category: index === 0 ? 'Business' : undefined,
+        author: {
+          name: index % 2 === 0 ? 'Jennifer Taylor' : 'Ryan A.',
+          avatar: `https://i.pravatar.cc/150?u=${data.id}`
+        },
+        readTime: `${(index % 5) + 2} min read`,
+        image: images[index % images.length],
+        featured: index < 6,
+        featuredSize: index < 6 ? (index === 0 ? 'large' : 'small') : undefined
+      }));
+      
+      if (search) {
+        const lower = search.toLowerCase();
+        mapped = mapped.filter((p: any) => p.title.toLowerCase().includes(lower) || p.excerpt.toLowerCase().includes(lower));
+      }
+      return mapped;
     },
     initialData: search ? undefined : initialPosts,
   });
