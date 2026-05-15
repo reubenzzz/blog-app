@@ -33,12 +33,22 @@ function mapToUIPost(data: any, index: number): Post {
     'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80',
     'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80',
     'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=80'
+  const fallbackTitles = [
+    'Unlocking Business Efficiency with SaaS Solutions',
+    'Revolutionizing industries through SaaS implementation',
+    'Synergizing saas and UX design for elevating digital experiences',
+    'Navigating saas waters with intuitive UI and UX',
+    'Sculpting saas success - the art of UI and UX design',
+    'Transforming saas platforms - a UI/UX design odyssey',
+    'Mastering UI Elements: A Practical Guide for Designers',
+    'Crafting Seamless Experiences: The Art of Intuitive UI Design',
+    'Beyond Aesthetics: The Power of Emotional UX Design'
   ];
 
   return {
     id: data.id.toString(),
-    title: data.title || data.name || `Blog Post ${data.id}`,
-    excerpt: (data.body || data.content || data.text || 'Discover the latest insights and best practices in UI/UX design with our comprehensive guides.').substring(0, 100) + '...',
+    title: data.title || fallbackTitles[index % fallbackTitles.length],
+    excerpt: (data.body || data.content || data.text || 'Discover the latest insights and best practices in UI/UX design with our comprehensive guides. Explore the principles and techniques that drive user-centric design.').substring(0, 100) + '...',
     category: index === 0 ? 'Business' : undefined,
     author: {
       name: index % 2 === 0 ? 'Jennifer Taylor' : 'Ryan A.',
