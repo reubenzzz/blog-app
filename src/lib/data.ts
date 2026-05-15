@@ -33,6 +33,8 @@ function mapToUIPost(data: any, index: number): Post {
     'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80',
     'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80',
     'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=80'
+  ];
+
   const fallbackTitles = [
     'Unlocking Business Efficiency with SaaS Solutions',
     'Revolutionizing industries through SaaS implementation',
