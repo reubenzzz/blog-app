@@ -79,3 +79,8 @@ export async function fetchPost(id: string): Promise<Post | null> {
   const rawPost = await res.json();
   return mapToUIPost(rawPost, parseInt(id) - 1);
 }
+
+export async function getAllPostIds(): Promise<{id: string}[]> {
+  const posts = await fetchPosts();
+  return posts.map(post => ({ id: post.id }));
+}
