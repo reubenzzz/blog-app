@@ -13,7 +13,7 @@ export interface Post {
   featuredSize?: 'large' | 'small';
 }
 
-const EXTERNAL_MOCK_API = 'https://jsonplaceholder.typicode.com/posts';
+const EXTERNAL_MOCK_API = 'https://68bf7e239c70953d96efaba1.mockapi.io/posts';
 
 // Helper to map JSONPlaceholder dummy data to our exact UI requirements
 function mapToUIPost(data: any, index: number): Post {
@@ -37,8 +37,8 @@ function mapToUIPost(data: any, index: number): Post {
 
   return {
     id: data.id.toString(),
-    title: data.title,
-    excerpt: data.body.substring(0, 100) + '...',
+    title: data.title || data.name || `Blog Post ${data.id}`,
+    excerpt: (data.body || data.content || data.text || 'Discover the latest insights and best practices in UI/UX design with our comprehensive guides.').substring(0, 100) + '...',
     category: index === 0 ? 'Business' : undefined,
     author: {
       name: index % 2 === 0 ? 'Jennifer Taylor' : 'Ryan A.',

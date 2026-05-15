@@ -19,8 +19,8 @@ export function HomeClient({ initialPosts }: { initialPosts: Post[] }) {
       
       // We will hit the actual external mock API using our fetchPosts helper!
       // But since fetchPosts runs on the server (if it had secrets), we could proxy it.
-      // Since it's public, we just hit the JSONPlaceholder API directly here.
-      const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+      // Since it's public, we just hit the user's mockapi.io endpoint directly here.
+      const res = await fetch('https://68bf7e239c70953d96efaba1.mockapi.io/posts');
       if (!res.ok) throw new Error('Network response was not ok');
       const rawPosts = await res.json();
       
@@ -39,8 +39,8 @@ export function HomeClient({ initialPosts }: { initialPosts: Post[] }) {
       
       let mapped = rawPosts.slice(0, 9).map((data: any, index: number) => ({
         id: data.id.toString(),
-        title: data.title,
-        excerpt: data.body.substring(0, 100) + '...',
+        title: data.title || data.name || `Blog Post ${data.id}`,
+        excerpt: (data.body || data.content || data.text || 'Discover the latest insights and best practices in UI/UX design with our comprehensive guides.').substring(0, 100) + '...',
         category: index === 0 ? 'Business' : undefined,
         author: {
           name: index % 2 === 0 ? 'Jennifer Taylor' : 'Ryan A.',
